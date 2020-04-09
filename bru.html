@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<style>
+			html{
+				background-color: #111;
+				height:100vh;
+			}
+			body, .b {
+				height: 100%
+			}
+			.heading, pre, .nav, .main {
+				font-family: monospace;
+				color: #66dd22;
+				font-size: 1.5em;
+			}
+			.heading {
+				color: #ab00e2
+			}
+			.nav {
+				font-size: 1.3em;
+				font-family: monospace;
+			}
+			a {
+				text-decoration: none;
+				color: #ab00e2;
+				padding: 10px;
+			}
+			a:hover {
+				color: #ab00e2;
+				border-bottom: 2px solid #ab00e2
+			}
+			.main {
+				color: #55cc00;
+				text-align: justify;
+				min-width: 50%;
+				max-width: 55%;
+				background-color:rgb(35, 35, 35);
+				border-radius: 10px;
+			}
+			.maintext {
+				padding-top: 20px;
+				padding-left: 30px;
+				padding-right: 30px;
+				line-height: 25px;
+			}
+			.hl {
+				color: #ab00e2;
+			}
+		</style>
+	</head>
+	<body>
+		<center class="b">
+		<div class="nav">
+			<span class="navL"><a href="bru.html">Home</a></span>
+			&emsp;&emsp;<span class="navL"><a href="abt.html">About</a></span>
+			&emsp;&emsp;<span class="navL"><a href="cde.html">Code</a></span>
+		</div>
+		<pre>
+ ____   ____   __ __ 
+|    \ |    \ |  T  T
+|  o  )|  D  )|  |  |
+|     ||    / |  |  |
+|  O  ||    \ |  :  |
+|     ||  .  \|     |
+l_____jl__j\_j \__,_j
+		</pre>
+		<p class="heading">A simple text-based electronics simulator</p>
+		<br><br>
+		<div class="main">
+			<p class="maintext">
+				<span class="hl">BRU</span> uses its own flavor of HDL(hardware description language) called <span class="hl">Brudl</span> and a minimalistic scripting language named <span class="hl">Brusc</span> to design and simulate digital electronics components, like logic gates and chips.
+			</p>
+			<p class="maintext">
+				To use the BRU tool, clone the git repository or download the Go file [bru.go]. Build an executable for your system configuration using the Go build tool as follows :
+				<br>
+				<center><span class="hl">go build bru.go</span></center>
+			</p>
+			<p class="maintext">Once the executable is ready, write and save your hdl code and your script. The run the tool with your files as follows :</p>
+			<center>(On Windows)<br><br><span class="hl"> bru.exe path-to-hdl-file -s path-to-script</span>
+			<p class="maintext">What now? Well, go bananas!
+			
+			</center></p>
+			<p class="maintext">
+				Bru is free software, so you can modify the code and experiment with it all you want. If you want a particular feature to be added to a future release, drop me an email at <span class="hl">dev.godboleashwin@gmail.com</span>. If you discover a bug, open an issue on github and I'll try and fix it as soon as possible.
+			</p>
+			<br>
+		</div>
+		</center>
+	</body>
+</html>
