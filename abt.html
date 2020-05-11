@@ -105,44 +105,44 @@
         <div class="main">
             <p class="maintext">
                 <span class="hl-in">
-                    <span class="hlg">load</span> [ <br>
-                    &nbsp;&nbsp;&nbsp; filename_with_path <br>
+                    <span class="hlg">LOAD</span> [ <br>
+                    &nbsp;&nbsp;&nbsp;filename_with_path <br>
                     ] <br> <br>
 
                     <span class="hlg">#</span>nand <br>
-                    <span class="hlg">--sim</span> <br>
-                    <span class="hlg">in</span> ib1[2] <br>
-                    <span class="hlg">out</span> ob1 <br>
-                    <span class="hlg">con</span> <br>
+                    <span class="hlg">SIM</span> <br>
+                    <span class="hlg">IN</span> ib1[2] <br>
+                    <span class="hlg">OUT</span> ob1 <br>
+                    <span class="hlg">CON</span> <br>
                     &nbsp;&nbsp;&nbsp;t1 = <span class="hlg">and</span>(ib1[0], ib2[1]) <br>
                     &nbsp;&nbsp;&nbsp;ob1 = <span class="hlg">not</span>(t1) <br>
-                    <span class="hlg">end</span> <br>
+                    <span class="hlg">END</span> <br>
                     <br>
                     <span class="hlg">#</span>mux <br>
-                    <span class="hlg">in</span>  sp1 ib1 ib2 <br>
-                    <span class="hlg">out</span> ob1 <br>
-                    <span class="hlg">con</span> <br>
+                    <span class="hlg">IN</span>  sp1 ib1 ib2 <br>
+                    <span class="hlg">OUT</span> ob1 <br>
+                    <span class="hlg">CON</span> <br>
                     &nbsp;&nbsp;&nbsp;t1 = <span class="hlg">not</span>(sp1) <br>
                     &nbsp;&nbsp;&nbsp;t2 = <span class="hlg">and</span>(sp1, ib2) <br>
                     &nbsp;&nbsp;&nbsp;t3 = <span class="hlg">and</span>(t1, ib1) <br>
                     &nbsp;&nbsp;&nbsp;ob1 = <span class="hlg">or</span>(t2, t3) <br>
-                    <span class="hlg">end</span> <br>
+                    <span class="hlg">END</span> <br>
                 </span>
             </p>
         </div>
         <div class="main">
             <p class="maintext">
                 HDL Description :<br><br>
-                <span class="hl">load</span><br>Like C's #include, it will load the whole of the file whose name is given and copy its contents over to the current file before interprettation occurs.<br><br>
+                <span class="hl">LOAD</span><br>Like C's #include, it will load the whole of the file whose name is given and copy its contents over to the current file before interprettation occurs.<br><br>
                 <span class="hl">#</span><br>Declares the name of the chip.<br><br>
-                <span class="hl">in</span><br>Declares the inputs that a component will accept.<br><br>
-                <span class="hl">out</span><br>Declares the outputs that a component will accept.<br><br>
-                <span class="hl">con</span><br>Denotes the start point for where the component's working is described.<br><br>
-                <span class="hl">end</span><br>Denotes the end of the component's description.<br><br>
+                <span class="hl">IN</span><br>Declares the inputs that a component will accept.<br><br>
+                <span class="hl">OUT</span><br>Declares the outputs that a component will accept.<br><br>
+                <span class="hl">CON</span><br>Denotes the start point for where the component's working is described.<br><br>
+                <span class="hl">END</span><br>Denotes the end of the component's description.<br><br>
                 <span class="hl">not</span><br>One of the three standard gates the interpretter understands by default.<br><br>
                 <span class="hl">and</span><br>One of the three standard gates the interpretter understands by default.<br><br>
                 <span class="hl">or</span><br>One of the three standard gates the interpretter understands by default.<br><br>
-                <span class="hl">--sim</span><br> A flag that denotes which chip is marked for simulation. Only one out of all the chips in the file (including those that are in the files that are loaded) can be marked for simulation.<br><br>
+                <span class="hl">SIM</span><br> A flag that denotes which chip is marked for simulation. Only one out of all the chips in the file (including those that are in the files that are loaded) can be marked for simulation.<br><br>
             </p>
         </div>
     </body>
