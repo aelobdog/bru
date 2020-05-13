@@ -660,32 +660,34 @@ func assembleVlistVdec() (string, string) {
 	clockedVarList = ""
 	vals2 := ""
 	vlO := ""
-	if len(scOArgsBits) > 0 {
-		varDec += "var "
-		clockedVarList += "var "
-		for l, v := range scOArgsBits {
-			vlO += v
-			vals2 += "\"X\""
-			if globalClocked {
-				clockedVarList += "l" + v
-			}
-			if l != len(scOArgsBits)-1 {
-				vlO += ", "
-				vals2 += ", "
+	if globalClocked {
+		if len(scOArgsBits) > 0 {
+			varDec += "var "
+			clockedVarList += "var "
+			for l, v := range scOArgsBits {
+				vlO += v
+				vals2 += "\"X\""
 				if globalClocked {
-					clockedVarList += ", "
+					clockedVarList += "l" + v
+				}
+				if l != len(scOArgsBits)-1 {
+					vlO += ", "
+					vals2 += ", "
+					if globalClocked {
+						clockedVarList += ", "
+					}
 				}
 			}
-		}
-		varDec += vlO + " string = " + vals2 + "\n"
-		if globalClocked {
-			clockedVarList += " string = " + vals2 + "\n"
+			varDec += vlO + " string = " + vals2 + "\n"
+			if globalClocked {
+				clockedVarList += " string = " + vals2 + "\n"
+			}
 		}
 	}
 	if globalClocked {
 		varDec += clockedVarList
 	}
-	varDec += oBufDec + "\n"
+	// varDec += oBufDec + "\n"
 	if globalClocked {
 		varDec += clkOBufDec + "\n"
 	}
@@ -717,7 +719,11 @@ func ui() {
 		var runMode string
 		var scriptData string
 		var indexStart int
-		finalGo = "package main\n\nimport (\n\"io\"\n\"os\"\n)\n"
+		finalGo = "package main\n\nimport (\n\"io\"\n\"os\""
+		if !globalClocked {
+			finalGo += "\n\"fmt\""
+		}
+		finalGo += "\n)\n"
 		finalGo += goEquivOutput[:strings.Index(goEquivOutput, "$")]
 		finalGo += "\nfunc main() {\n"
 		if len(os.Args) > 2 {
