@@ -510,7 +510,6 @@ func interpretScript(simFunc, scriptData string) {
 							}
 						}
 						mainFuncStuff += "\n"
-						mainFuncStuff += loopCommand
 						for k, g := range inpvars {
 							mainFuncStuff += "l" + strings.TrimSpace(g)
 							if k != len(inpvars)-1 {
@@ -524,7 +523,7 @@ func interpretScript(simFunc, scriptData string) {
 								mainFuncStuff += ", "
 							}
 						}
-
+						mainFuncStuff += "\n" + loopCommand
 					} else if strings.Contains(v, "t") {
 						if firstIF {
 							mainFuncStuff += "\nif " + strings.ReplaceAll(v, "=", "==")
