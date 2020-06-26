@@ -162,7 +162,7 @@ func returnLines(str string) []string {
 func parseLines(lines []string) chip {
 	var newChip chip
 	for k, v := range lines {
-		if strings.HasPrefix(v, "#") {
+		if strings.HasPrefix(v, "*") {
 			//	line contains declaration of chip name
 			newChip.name = strings.TrimSpace(v[1:])
 		} else if strings.HasPrefix(v, "IN") {
@@ -199,7 +199,7 @@ func parseLines(lines []string) chip {
 			newChip.simulate = true
 			mainFuncCode += "    RUN_FUNC: [" + newChip.name + "]\n"
 			sim = true
-		} else if strings.TrimSpace(v) == "CLOCKED" {
+		} else if strings.TrimSpace(v) == "CLK" {
 			globalClocked = true
 			newChip.clocked = true
 		}
@@ -341,6 +341,10 @@ func preproc() {
 		return
 	}
 
+	if strings.Index(bruData, "LOAD") == -1 {
+		return
+	}
+
 	loads := strings.Split(strings.TrimSpace(bruData[strings.Index(bruData, "[")+1:strings.Index(bruData, "]")]), "\n")
 	bruData = bruData[strings.Index(bruData, "]")+1:]
 
@@ -349,7 +353,7 @@ func preproc() {
 		var chipInTF string
 		flag := false
 		for {
-			chipInTF = tempFile[strings.Index(tempFile, "#") : strings.Index(tempFile, "END")+3]
+			chipInTF = tempFile[strings.Index(tempFile, "*") : strings.Index(tempFile, "END")+3]
 			tempFile = tempFile[strings.Index(tempFile, "END")+3:]
 			for _, v := range chipsInFile {
 				if retNames(chipInTF)[0] == v {
@@ -363,7 +367,7 @@ func preproc() {
 			} else {
 				flag = false
 			}
-			if !strings.Contains(tempFile, "#") {
+			if !strings.Contains(tempFile, "*") {
 				break
 			}
 		}
@@ -379,10 +383,10 @@ func preproc() {
 func makeChip() {
 	var chips []chip
 	var temp string
-	numChips := strings.Count(bruData, "#")
+	numChips := strings.Count(bruData, "*")
 
 	for i := 0; i < numChips; i++ {
-		temp = bruData[strings.Index(bruData, "#") : strings.Index(bruData, "END")+3]
+		temp = bruData[strings.Index(bruData, "*") : strings.Index(bruData, "END")+3]
 		bruData = bruData[strings.Index(bruData, "END")+3:]
 		lines := returnLines(temp)
 		chips = append(chips, parseLines(lines))
@@ -768,8 +772,8 @@ func retNames(from string) []string {
 	var n string
 	l := returnLines(t)
 	for _, v := range l {
-		if strings.HasPrefix(v, "#") {
-			n = v[1:]
+		if strings.HasPrefix(v, "*") {
+			n = strings.TrimSpace(v[1:])
 			names = append(names, n)
 		}
 	}
