@@ -85,10 +85,11 @@ implementation.
 ### Syntax
 Wondering what you just read (above)? No worries! here's an explanation for it.
 The syntax of Bru's HDL is divided into the following sections, roughly:
-    1. Component Declaration
-    2. Special Flags/Keywords
-    3. The Input and Output specifiers.
-    4. Component design instructions
+
+* Component Declaration
+* Special Flags/Keywords
+* The Input and Output specifiers.
+* Component design instructions
     
 Lets look at each one of these one by one.
 
