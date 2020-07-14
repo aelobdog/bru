@@ -63,16 +63,15 @@ keywords in total in Bru's HDL. They are : *, IN, OUT, CON, END, SIM, CLK. (yes
 
 Let's look at a sample HDL file:
 ```
-    * nand
-    IN  i1 i2
-    OUT o1
-    CON
-        t1 = and(i1, i2)
-        o1 = not(t1)
-    END
-   
-(Note: Indentation isn't compulsory, it may be ommited as per your preferences)
+* nand
+IN  i1 i2
+OUT o1
+CON
+    t1 = and(i1, i2)
+    o1 = not(t1)
+END
 ```
+(Note: Indentation isn't compulsory, it may be ommited as per your preferences)
 
 This is a simple "nand" gate in BruHDl. If you have any experience with any
 of the other HDLs out there, you may find certain similarities and a LOT of
@@ -100,7 +99,7 @@ words in the name, you may use underscores(_) or pascalCase, but not spaces.
 This section should also always be followed by the components 'definition'
 or its 'body'. From the above example, 'nand' may be declared as :
 ```
-	* nand
+* nand
 
 (Note: the space between '*' and the name is just for clarity. You may have as 
 many spaces as you want, or even none, after the '*')
@@ -110,8 +109,8 @@ many spaces as you want, or even none, after the '*')
 Bru provides 2 flags/keywords for which tell the simulator different things. 
 These flags are :
 ```
-	- SIM
-	- CLK
+- SIM
+- CLK
 ```
 
 If you are designing a component, chances are you want to also simulate it
@@ -120,8 +119,8 @@ to check its 'correctness'. Bru allows you to simulate _one component_ per
 file, you can use the SIM flag. This tag would immediately follow the
 declaration of the component like so :
 ```
-	* nand
-	SIM
+* nand
+SIM
 ```
 
 If you want to indicate to Bru that a particular component is sequential, 
@@ -129,21 +128,20 @@ not combinational in nature, you may use the CLK flag. More details on this
 flag later. For now, just know that there is another flag. When you use it, 
 it will look like this :
 ```
-	* some_sequential_circuit
-	CLK
+* some_sequential_circuit
+CLK
 ```
 
 What if you want to simulate a sequential component ? Well it's simple.
 Just stack the flags after the declaration like so :
 ```
-	* some_sequential_circuit
-	SIM
-	CLK
-
-	(Note: The order of flags in not important)
+* some_sequential_circuit
+SIM
+CLK
 ```
+(Note: The order of flags in not important)
 
-#### The INput and OUTput specifiers.
+#### The Input and Output specifiers.
 Following the optional flags are the INput and OUTput lines. These are very
 simple to understand, other than maybe one case, where you may want one of the
 circuit's outputs to link back into one of its inputs. More on that in a bit.
@@ -153,21 +151,20 @@ separated indentifiers. This list must follow the IN keyword, where 'IN'
 has to be in _UPPERCASE_. For example, for the 'nand' gate we would have
 (assuming that the nand gate is a 2 input gate)
 ```
-	IN i1 i2
-
+IN i1 i2
+```
 (Note: using 'i' followed by a number is a convention that I follow. You may
 use any names for the inputs that you wish, like a, b, inp1, inp2 etc.)
-```
 
 You may also use input buffers if the number of inputs is large. This means
 that if you want to represent 2 inputs as a buffer, you may do so like this :
 ```
-	IN i[2]
+IN i[2]
 ```
 and the individual elements of this can be used as you would access the
 elements of a zero-indexed array, like so:
 ```
-	i[0], i[1]
+i[0], i[1]
 ```
 
 All of the aforementioned things can be done the _exact same way for outputs_
@@ -179,8 +176,9 @@ designing sequential circuits like memory elements and such. Bru supports
 this feature too ! If you want to link any output back to any of the inputs
 you can do this :
 ```
-	IN 	i1 (i2|o1)
-	OUT o1 o2
+IN i1 (i2|o1)
+OUT o1 o2
+```
 
 (Note: the position of (i2|o1) is not fixed. It may occur anywhere within the 
 inputs list)
@@ -188,7 +186,7 @@ inputs list)
 (Note: This feature currently works only on components that are being simulated.
 I cannot guarentee that it will work in any other case. This feature is not 
 meant to be used very often and is untested. Please think before using this)
-```
+
 
 #### Component design instructions
 This is the last section of a component's definition. The description of how
