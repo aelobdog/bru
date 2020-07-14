@@ -100,10 +100,11 @@ This section should also always be followed by the components 'definition'
 or its 'body'. From the above example, 'nand' may be declared as :
 ```
 * nand
+```
 
 (Note: the space between '*' and the name is just for clarity. You may have as 
 many spaces as you want, or even none, after the '*')
-```
+
 
 #### Special Flags/Keywords
 Bru provides 2 flags/keywords for which tell the simulator different things. 
@@ -277,11 +278,11 @@ t = 2 {
 t = 3 {
     another_input = 1
 }
+```
 
 (Note: since the value of 'an_input' is not provided at t = 3, the value of 
 'an_input' at t = 3 is taken to be what it was at t = 2, which was 0 in this
 case)
-```
 
 That's it ! That's all that there is to Bru ! Now its up to you and your
 creativity to come up with all kinds of different circuits using this tool.
