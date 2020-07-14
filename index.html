@@ -1,0 +1,285 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Bru by ashvin-godbole</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/ashvin-godbole/bru">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/ashvin-godbole/bru/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/ashvin-godbole/bru/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Bru</h1>
+          <p>A command line electronics simulator, written in Go !</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/ashvin-godbole">ashvin-godbole</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h2>
+<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h2>
+<p>Welcome to Bru's official documentation. If you have been following the Youtube
+series, you will find this document to be completely compatible with it. If you
+haven't been following it, no problems! This document is complete in itself,
+you'll do just fine even if you are new to Bru. This document takes you through
+the whole process, from writing your first bru file, to silumating it.</p>
+<p>Interested? Cool! You've come to the right place.</p>
+<h2>
+<a id="prerequisites" class="anchor" href="#prerequisites" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prerequisites</h2>
+<p>There aren't that many prerequisites to Bru. In terms of software, you will
+need to install the Go programming language first. This can be done easily for
+any platform, be it Windows, Mac or Gnu/Linux. You can find the instructions
+for installing Go for your system at the link below.</p>
+<p><a href="https://golang.org/dl/">Go Programming Language</a></p>
+<p>The other software prerequisite for Bru is the Bru source file itself. This can
+be obtained from my GitHub repository.</p>
+<p>You can download the file in any way you like. If you have Git installed on
+your computer, you can clone the repository using the command given below.</p>
+<p>Clone the GitHub repository using : <code>git clone https://github.com/ashvin-godbole/bru</code></p>
+<p>Once you have installed Go and downloaded the Bru source code, you're all set.
+Now the only other thing that you need is an interest in goofing around with
+tool!</p>
+<h2>
+<a id="bru-project-structure" class="anchor" href="#bru-project-structure" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Bru Project Structure</h2>
+<p>Every Bru project consists of HDL files and their corresponding SCRIPT files.
+The HDL files describe the construction of a particular circuit and the SCRIPT
+files contain the inputs to be provided to the circuits described. These files
+don't require any specific file extensions. This means that you can give these
+HDL and SCRIPT files may or may not have any file extension and if they do have
+an extension, it may be anything you wish.</p>
+<p>One thing you need to keep in mind is that all files in your project must be
+stored in ONE FOLDER ONLY. This means that you can't, at the moment, segregate
+your HDL and SCRIPT files in their own separate folders. This is a bug that we
+must unfortunately must live with, for now at least.</p>
+<p>So your folder must look something like this:</p>
+<pre><code>- Project Root
+    - HDL_FILE_ONE
+    - HDL_FILE_TWO
+    - SCRIPT_FILE_ONE
+    - SCRIPT_FILE_TWO
+    - ...
+</code></pre>
+<h2>
+<a id="bru-hardware-description-language" class="anchor" href="#bru-hardware-description-language" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Bru Hardware Description Language</h2>
+<p>Like many other tools, Bru uses a flavor of HDL to describe the structure of
+a circuit. This falvor of HDL is designed to be super simple. There are only 6
+keywords in total in Bru's HDL. They are : <em>, IN, OUT, CON, END, SIM, CLK. (yes
+, the '</em>' character is a keyword).</p>
+<p>Let's look at a sample HDL file:</p>
+<pre><code>* nand
+IN  i1 i2
+OUT o1
+CON
+    t1 = and(i1, i2)
+    o1 = not(t1)
+END
+</code></pre>
+<p>(Note: Indentation isn't compulsory, it may be ommited as per your preferences)</p>
+<p>This is a simple "nand" gate in BruHDl. If you have any experience with any
+of the other HDLs out there, you may find certain similarities and a LOT of
+differences when you compare BruHDL with them. Most of the syntax choices
+that have been made for BruHDL have not been chosen for any specific reason,
+other than that I felt like implementing it in a certain way to either make
+it simpler for you to write in it or to make it simpler for me to write its
+implementation.</p>
+<h3>
+<a id="syntax" class="anchor" href="#syntax" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Syntax</h3>
+<p>Wondering what you just read (above)? No worries! here's an explanation for it.
+The syntax of Bru's HDL is divided into the following sections, roughly:</p>
+<ul>
+<li>Component Declaration</li>
+<li>Special Flags/Keywords</li>
+<li>The Input and Output specifiers.</li>
+<li>Component design instructions</li>
+</ul>
+<p>Lets look at each one of these one by one.</p>
+<h4>
+<a id="component-declaration" class="anchor" href="#component-declaration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Component Declaration.</h4>
+<p>Every component starts with a '*' followed by the name of the component.
+The name of any component may not have spaces in it. If you want to separate
+words in the name, you may use underscores(_) or pascalCase, but not spaces.
+This section should also always be followed by the components 'definition'
+or its 'body'. From the above example, 'nand' may be declared as :</p>
+<pre><code>* nand
+</code></pre>
+<p>(Note: the space between '<em>' and the name is just for clarity. You may have as
+many spaces as you want, or even none, after the '</em>')</p>
+<h4>
+<a id="special-flagskeywords" class="anchor" href="#special-flagskeywords" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Special Flags/Keywords</h4>
+<p>Bru provides 2 flags/keywords for which tell the simulator different things.
+These flags are :</p>
+<pre><code>- SIM
+- CLK
+</code></pre>
+<p>If you are designing a component, chances are you want to also simulate it
+to check its 'correctness'. Bru allows you to simulate <em>one component</em> per
+'run'. To indicate which one of the multiple components you may have in a
+file, you can use the SIM flag. This tag would immediately follow the
+declaration of the component like so :</p>
+<pre><code>* nand
+SIM
+</code></pre>
+<p>If you want to indicate to Bru that a particular component is sequential,
+not combinational in nature, you may use the CLK flag. More details on this
+flag later. For now, just know that there is another flag. When you use it,
+it will look like this :</p>
+<pre><code>* some_sequential_circuit
+CLK
+</code></pre>
+<p>What if you want to simulate a sequential component ? Well it's simple.
+Just stack the flags after the declaration like so :</p>
+<pre><code>* some_sequential_circuit
+SIM
+CLK
+</code></pre>
+<p>(Note: The order of flags in not important)</p>
+<h4>
+<a id="the-input-and-output-specifiers" class="anchor" href="#the-input-and-output-specifiers" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>The Input and Output specifiers.</h4>
+<p>Following the optional flags are the INput and OUTput lines. These are very
+simple to understand, other than maybe one case, where you may want one of the
+circuit's outputs to link back into one of its inputs. More on that in a bit.</p>
+<p>For any component, all its inputs may be specified as a list of SPACE
+separated indentifiers. This list must follow the IN keyword, where 'IN'
+has to be in <em>UPPERCASE</em>. For example, for the 'nand' gate we would have
+(assuming that the nand gate is a 2 input gate)</p>
+<pre><code>IN i1 i2
+</code></pre>
+<p>(Note: using 'i' followed by a number is a convention that I follow. You may
+use any names for the inputs that you wish, like a, b, inp1, inp2 etc.)</p>
+<p>You may also use input buffers if the number of inputs is large. This means
+that if you want to represent 2 inputs as a buffer, you may do so like this :</p>
+<pre><code>IN i[2]
+</code></pre>
+<p>and the individual elements of this can be used as you would access the
+elements of a zero-indexed array, like so:</p>
+<pre><code>i[0], i[1]
+</code></pre>
+<p>All of the aforementioned things can be done the <em>exact same way for outputs</em>
+using the OUT keyword.</p>
+<p>An interesting, but weird case arises if you want to connect the output of
+a particular component back into one of its inputs. This may be useful when
+designing sequential circuits like memory elements and such. Bru supports
+this feature too ! If you want to link any output back to any of the inputs
+you can do this :</p>
+<pre><code>IN i1 (i2|o1)
+OUT o1 o2
+</code></pre>
+<p>(Note: the position of (i2|o1) is not fixed. It may occur anywhere within the
+inputs list)</p>
+<p>(Note: This feature currently works only on components that are being simulated.
+I cannot guarentee that it will work in any other case. This feature is not
+meant to be used very often and is untested. Please think before using this)</p>
+<h4>
+<a id="component-design-instructions" class="anchor" href="#component-design-instructions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Component design instructions</h4>
+<p>This is the last section of a component's definition. The description of how
+the circuit is designed is contained within two keywords, CON and END. For our
+example nand gate, we would have to put the following instructions inside the
+CON and END 'tags' or keywords:</p>
+<pre><code>CON
+    t1 = and(i1, i2)
+    o1 = not(t1)
+END
+</code></pre>
+<p>If you feel like doing it all in one line, you can do that as well ! Just do
+it like this:</p>
+<pre><code>CON
+    o1 = not(and(i1, i2))
+END
+</code></pre>
+<p>Thats it for the HDL ! Let's move on to the Script then !</p>
+<h2>
+<a id="bru-scripts" class="anchor" href="#bru-scripts" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Bru scripts</h2>
+<p>The script files in Bru have different syntax when it comes to combinational
+and sequential circuits. We'll start with combinational circuit scripts first.</p>
+<h3>
+<a id="combinational-circuit-scripts" class="anchor" href="#combinational-circuit-scripts" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Combinational Circuit Scripts</h3>
+<p>These scripts are very straightforward. All you need to know to write a script
+are the names of the inputs given to the circuit marked with SIM, and the 'call'
+keyword. So for our nand gate, the script would look something like this:</p>
+<pre><code>i1 = 1
+i2 = 1
+call
+</code></pre>
+<p>This will cause the bru program to print the result of (1 NAND 1) to the
+standard output, your terminal. If you pile up multiple such entries, it will
+look something like this:</p>
+<pre><code>i1 = 1
+i2 = 1
+call
+
+i1 = 0
+i2 = 1
+call
+
+i1 = 0
+i2 = 0
+call
+
+i1 = 1
+i2 = 0
+call
+</code></pre>
+<p>This is effectively going to print out the truth table for our nand gate.</p>
+<h3>
+<a id="sequential-circuit-scripts" class="anchor" href="#sequential-circuit-scripts" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sequential Circuit Scripts</h3>
+<p>For these scripts, there are certain rules that should be kept in mind. One of
+these rules is that any sequential circuit script must start by declaring the
+number of cycles to simulate the circuit for. This is done by assigning a whole
+number value (integer &gt;= 0) to the 'dur' property in the script, like so:</p>
+<pre><code>dur = 5
+</code></pre>
+<p>Once this is done, you can provide the values for the inputs during different
+cycles using the syntax below. It is important to know that if no input is
+specified for a cycle 'n', then the values of the input in cycle 'n-1' are
+carried over to be the values of inputs in cycle 'n'.</p>
+<pre><code>t = 0 {
+    an_input = 1
+    another_input = 0
+}
+
+(Note: since there are no inputs specified for t = 1, the inputs for t = 1 will
+be the same as those for t = 0)
+
+t = 2 {
+    an_input = 0
+    another_input = 1
+}
+
+t = 3 {
+    another_input = 1
+}
+</code></pre>
+<p>(Note: since the value of 'an_input' is not provided at t = 3, the value of
+'an_input' at t = 3 is taken to be what it was at t = 2, which was 0 in this
+case)</p>
+<p>That's it ! That's all that there is to Bru ! Now its up to you and your
+creativity to come up with all kinds of different circuits using this tool.</p>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
